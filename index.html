@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>果果的课堂笔记 · 每讲砸实</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar no-print">
+  <div class="topbar-inner">
+    <button id="btn-back" class="icon-btn" hidden title="返回目录">←</button>
+    <div class="brand">
+      <span class="brand-mark">🧭</span>
+      <span class="brand-text">果果的课堂笔记</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-print" class="ghost-btn" hidden>打印本讲</button>
+      <button id="btn-guide" class="ghost-btn">怎么加新笔记</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <div class="loading">正在加载笔记…</div>
+</main>
+
+<!-- 新增笔记说明 -->
+<div id="guide-mask" class="mask" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3>以后每一讲怎么进这个平台？</h3>
+      <button id="btn-guide-close" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <p><b>办法一（自己就能做）：打开「笔记工坊」</b></p>
+      <ol>
+        <li>双击 <code>notes-forge\启动笔记工坊.bat</code>，浏览器会打开一个上传页。</li>
+        <li>选课堂笔记 PDF（微信收到的就行），先选<b>科目</b>（数学 / 语文 / 英语），填讲次标题，点「开始生成」。</li>
+        <li>等 2~6 分钟，它会自动做完这几件事：把每页转成图、逐页判断这页是封面还是正文还是例题、写一分钟总结和思维导图、整理例题、出雷区和自测、最后直接写进这个平台。</li>
+        <li>回来刷新本页，新的一讲就出现了。</li>
+      </ol>
+      <p><b>办法二（要更精细时）：让阿岩手工整理</b>，流程和下面一样，只是每一页对到哪个模块由人逐页确认。</p>
+      <ol>
+        <li>同一份 PDF 拆成板书页图（<code>pages/LXX/p01.jpg…</code>），按上课顺序存好。</li>
+        <li>在 <code>data/board-map.js</code> 里把每一页对到纪要的位置上：哪个知识模块该嵌第几页、哪道例题该嵌第几页，各写一句"这页是什么"。</li>
+        <li>纯封面 / 目录 / 空白页写进 <code>skipInBody</code>，它们只留在文末画廊，不占正文。</li>
+        <li>在 <code>data/index.js</code> 的名单里加一行 <code>'lessonXX'</code>，刷新就能看到。</li>
+      </ol>
+      <p>平台是纯静态网页，不依赖服务器：换电脑、换手机，只要这堆文件在，笔记就在。首页按<b>数学 / 语文 / 英语</b>分科排列，每一讲都自带「一分钟总结 + 知识点 + 例题 + 雷区 + 自测 + 复习打卡」。</p>
+      <div class="modal-foot">
+        <button id="btn-guide-ok" class="ghost-btn">知道了，关掉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 板书放大查看 -->
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-btn lb-close" id="lb-close" title="关闭（Esc）">✕</button>
+  <button class="lb-btn lb-prev" id="lb-prev" title="上一页（←）">‹</button>
+  <img id="lb-img" src="" alt="课堂板书页面">
+  <button class="lb-btn lb-next" id="lb-next" title="下一页（→）">›</button>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<script src="data/index.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
